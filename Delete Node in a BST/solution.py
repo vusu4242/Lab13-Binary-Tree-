@@ -6,7 +6,18 @@
 #         self.right = right
 class Solution(object):
     def helper(self, root):
-        return []
+        if root.left is None:
+            return root.right
+        if root.right is None:
+            return root.left
+
+        left = root.left
+        right = root.right
+        curr = root
+        while left.right:
+            left = left.right
+        left.right = right
+        return curr.left
 
     def deleteNode(self, root, key):
         """
@@ -16,10 +27,10 @@ class Solution(object):
         """
         if root is None:
             return None
-        
+
         if root.val == key:
             return self.helper(root)
-        
+
         curr = root
         while root:
             if key < root.val:
@@ -33,6 +44,3 @@ class Solution(object):
                     break
                 root = root.right
         return curr
-
-    
-        
